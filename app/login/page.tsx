@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { supabase } from "@/lib/supabase"
+import { toast } from "sonner"
 
 
 export default function LoginPage(){
@@ -39,7 +40,10 @@ export default function LoginPage(){
 
     if (profileError){
     console.log(profileError)
+    
     }
+
+    toast.success("authentification reussie ")
 
     localStorage.setItem("user" ,JSON.stringify(profile))
     setChargement(false)

@@ -24,10 +24,6 @@ const [nom, setNom] = useState("")
 
 
   async function handleRegister(){
-
-    try {
-        
-    
     if (!nom || !prenom || !motDePasse || !confirmMdp){
         setErreur("Remplir tous les champs ")
         return
@@ -45,7 +41,11 @@ const [nom, setNom] = useState("")
   })
 
    if (error){
-throw error  }
+    setErreur(error.message)
+    setChargement(false)
+    toast.warning(String(error))
+    return
+   }
 
    if(data.user){
     await supabase.from("profiles").insert({
@@ -58,17 +58,15 @@ throw error  }
     })
    }
 
-   toast.success("Inscription effectue avec success")
-
    setChargement(false)
    router.push("/login")
-    }
- catch (error) {
-            setErreur(error.message)
-    setChargement(false)
-    toast.error(error.message || String(error))
-    }
+   toast.success("Inscription reussie")
+
+
   }
+
+ 
+
 
     return(
         <div className="min-h-screen flex justify-center items-center bg-[#f5f5f5] p-5 font-sans">
@@ -84,9 +82,9 @@ throw error  }
 
                 <div className=" bg-white border-[#e5e5e5] rounded-2xl px-7 py-8">
                     <Input placeholder="Nom" value={nom} onChange={(e)=>setNom(e.target.value)} className="w-full px-3 py-2.5 border-[#ddd] rounded-s-lg text-sm outline-none mb-5 box-border" />
-                    <Input placeholder="Prenom" value={prenom} onChange={(e)=>setPrenom(e.target.value)} className="w-full px-3 py-2.5 border-[#ddd] rounded-s-lg text-sm outline-none mb-5 box-border" />
+                    <Input placeholder="Prénom" value={prenom} onChange={(e)=>setPrenom(e.target.value)} className="w-full px-3 py-2.5 border-[#ddd] rounded-s-lg text-sm outline-none mb-5 box-border" />
                     <Input placeholder="Adresse" value={adresse} onChange={(e)=>setAdresse(e.target.value)} className="w-full px-3 py-2.5 border-[#ddd] rounded-s-lg text-sm outline-none mb-5 box-border" />
-                    <Input placeholder="Telephone" value={tel} onChange={(e)=>setTel(e.target.value)} className="w-full px-3 py-2.5 border-[#ddd] rounded-s-lg text-sm outline-none mb-5 box-border" />
+                    <Input placeholder="Téléphone" value={tel} onChange={(e)=>setTel(e.target.value)} className="w-full px-3 py-2.5 border-[#ddd] rounded-s-lg text-sm outline-none mb-5 box-border" />
 
                     <Input type="email" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)} className="w-full px-3 py-2.5 border-[#ddd] rounded-s-lg text-sm outline-none mb-5 box-border" />
                     <Input type="password" placeholder="Mot de passe" value={motDePasse} onChange={(e)=>setMotDePasse(e.target.value)} className="w-full px-3 py-2.5 border-[#ddd] rounded-s-lg text-sm outline-none mb-5 box-border" />
