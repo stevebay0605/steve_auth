@@ -22,7 +22,6 @@ const [nom, setNom] = useState("")
   const [erreur, setErreur] = useState("")
   const [chargement, setChargement] = useState(false)
 
-
   async function handleRegister(){
     if (!nom || !prenom || !motDePasse || !confirmMdp){
         setErreur("Remplir tous les champs ")
