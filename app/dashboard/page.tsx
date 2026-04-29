@@ -83,11 +83,12 @@ export default function Dashboard() {
           <div className="flex items-center gap-5 mb-8 pb-6 border-b-[#f0f0f0]">
             <div className="w-[64] h-[64] rounded-[50%] bg-[#111] text-white flex items-center justify-center text-2xl font-medium shrink-0">
               {avatar ? (
-                <Image
+                <img
                   src={avatar}
                   alt="avatar"
                   className="w-full h-full object-cover rounded-[50%]"
                 />
+                
               ) : (
                 <span className="text-white text-xl font-medium">
                   {user.nom.charAt(0)}

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -113,11 +112,10 @@ export default function LoginPage() {
             onClick={handleGoogleLogin}
             className="w-full bg-white border text-black hover:bg-gray-100 mt-3"
           >
-            <Image
+            <img
               src="https://www.svgrepo.com/show/475656/google-color.svg"
               alt="google"
-              width={20}
-              height={20}
+              className="w-5 h-5"
             />
             <span className="font-medium">Continuer avec Google</span>
           </Button>
