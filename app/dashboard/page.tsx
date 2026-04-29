@@ -53,7 +53,7 @@ export default function Dashboard() {
   }, [router]);
 
   function handleDeconnexion() {
-    localStorage.removeItem("user");
+    supabase.auth.signOut()
     router.push("/");
   }
 
@@ -86,7 +86,7 @@ export default function Dashboard() {
                 <img
                   src={avatar}
                   alt="avatar"
-                  className="w-full h-full object-cover rounded-[50%]"
+                  className="w-full h-full object-cover rounded-full"
                 />
                 
               ) : (

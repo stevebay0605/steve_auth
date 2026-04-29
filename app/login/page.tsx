@@ -19,7 +19,7 @@ export default function LoginPage() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "https://steve-auth.netlify.app/auth/callback",
+        redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
 
@@ -129,10 +129,6 @@ export default function LoginPage() {
             </p>
           </div>
         </div>
-
-        <p className="text-center text-sm text-[#aaa] mt-5">
-          Compte test : stevebay@gmail.com / stevebay0605
-        </p>
       </div>
     </div>
   );

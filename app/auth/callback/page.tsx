@@ -9,40 +9,45 @@ export default function Callback() {
 
   useEffect(() => {
     const handleAuth = async () => {
-      const { data } = await supabase.auth.getUser()
+      const { data: { session } } = await supabase.auth.getSession()
+      const user = session?.user
 
-      if (!data.user) {
+      if (!user) {
         router.push("/login")
         return
       }
+      
+      window.history.replaceState({}, document.title, "/dashboard");
 
-     
-      let { data: profile } = await supabase
+
+      const { data: profile } = await supabase
         .from("profiles")
         .select("*")
-        .eq("id", data.user.id)
+        .eq("id", user.id)
         .single()
 
- 
       if (!profile) {
-        const fullName = data.user.user_metadata.full_name || ""
-        const [nom, prenom] = fullName.split(" ")
+        const fullName = user.user_metadata.full_name || ""
+        const parts = fullName.trim().split(" ")
+
+        const nom = parts[0] || "User"
+        const prenom = parts.slice(1).join(" ") || ""
 
         const { data: newProfile } = await supabase
           .from("profiles")
-          .insert({
-            id: data.user.id,
-            nom: nom || "User",
-            prenom: prenom || "",
-            email: data.user.email,
+          .upsert({
+            id: user.id,
+            nom,
+            prenom,
+            email: user.email,
           })
           .select()
           .single()
 
-        profile = newProfile
+        localStorage.setItem("user", JSON.stringify(newProfile))
+      } else {
+        localStorage.setItem("user", JSON.stringify(profile))
       }
-
-      localStorage.setItem("user", JSON.stringify(profile))
 
       router.push("/dashboard")
     }
