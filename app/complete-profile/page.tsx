@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
+import { cn } from "@/lib/utils"
 
 export default function CompleteProfile() {
   const router = useRouter()
@@ -43,37 +44,57 @@ export default function CompleteProfile() {
   }
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-[#f5f5f5] p-5 font-sans">
-      <div className="w-full max-w-sm">
-        <div className="text-center mb-8">
-          <h1 className="text-2xl font-medium text-[#111] mb-2">
-            Compléter le profil
-          </h1>
-          <p className="text-sm text-[#888]">
-            Quelques infos supplémentaires pour finaliser votre compte
-          </p>
-        </div>
+    <div className="min-h-screen flex justify-center items-center bg-[#F7F6F3] p-5 font-sans">
+      <div className="w-full max-w-100">
+          
+        <p className="text-center text-[11px] font-medium tracking-widest uppercase text-[#999] mb-8">
+          Auth
+        </p>
+ 
+        <div className="bg-white rounded-2xl border border-[#E8E8E8] px-8 py-9">
+ 
+          <div className="mb-7">
+            <h1 className="text-[20px] font-medium text-[#111] mb-1"> completer le profil</h1>
+            <p className="text-[13px] text-[#999]">Quelques infos supplémentaires pour finaliser votre compte</p>
+          </div>
+        
 
-        <div className="bg-white rounded-2xl px-7 py-8">
-          <Input
-            placeholder="Adresse"
-            value={adresse}
-            onChange={(e) => setAdresse(e.target.value)}
-            className="mb-4"
-          />
-          <Input
-            placeholder="Téléphone"
-            value={tel}
-            onChange={(e) => setTel(e.target.value)}
-            className="mb-6"
-          />
+          <div className="mb-4">
+            <label className="block text-[11px] font-medium uppercase tracking-[0.06em] text-[#999] mb-1.5">
+              Addresse
+            </label>
+            <Input
+              placeholder="Adresse"
+              value={adresse}
+              onChange={(e) => setAdresse(e.target.value)}
+              className="w-full h-10 px-3 text-[13px] bg-[#F7F6F3] border border-[#E8E8E8] rounded-lg outline-none focus:border-[#111] transition-colors text-[#111] placeholder:text-[#bbb]"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-[11px] font-medium uppercase tracking-[0.06em] text-[#999] mb-1.5">
+              Telephone
+            </label>
+            <Input
+              placeholder="Téléphone"
+              value={tel}
+              onChange={(e) => setTel(e.target.value)}
+              className="w-full h-10 px-3 text-[13px] bg-[#F7F6F3] border border-[#E8E8E8] rounded-lg outline-none focus:border-[#111] transition-colors text-[#111] placeholder:text-[#bbb]"
+            />
+          </div>
+
           <Button
-            className="w-full bg-black text-white hover:bg-gray-900"
+            className={cn(
+                          "w-full h-10.5 rounded-lg text-[13px] font-medium mt-5 transition-colors flex items-center justify-center gap-2",
+                          chargement
+                            ? "bg-[#555] cursor-not-allowed text-white"
+                            : "bg-[#111] hover:bg-[#222] text-white cursor-pointer"
+                        )}
             onClick={handleSubmit}
             disabled={chargement}
           >
             {chargement ? "Enregistrement..." : "Terminer"}
           </Button>
+          
         </div>
       </div>
     </div>
