@@ -9,6 +9,7 @@ import { toast } from "sonner"
 
 
 
+
 export default function Register(){
 const router = useRouter()
 
@@ -60,8 +61,19 @@ const [nom, setNom] = useState("")
    setChargement(false)
    router.push("/login")
    toast.success("Inscription reussie")
+  }
 
+  async function handleGoogleLogin() {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
 
+    if (error) {
+      toast.warning(String(error));
+    }
   }
 
  
@@ -97,6 +109,18 @@ const [nom, setNom] = useState("")
                     <Button className={cn("w-full text-white", chargement? "bg-gray-400" : "bg-black hover:bg-gray-900")} onClick={handleRegister} disabled={chargement}>
                         {chargement? "Creation..." : "S'inscrire"}
                     </Button>
+
+                    <Button
+            onClick={handleGoogleLogin}
+            className="w-full bg-white border text-black hover:bg-gray-100 mt-3"
+          >
+            <img
+              src="https://www.svgrepo.com/show/475656/google-color.svg"
+              alt="google"
+              className="w-5 h-5"
+            />
+            <span className="font-medium">Continuer avec Google</span>
+          </Button>
 
                     <p className="text-center text-sm text-[#888] mt-4">
                         Deja un compte ?  

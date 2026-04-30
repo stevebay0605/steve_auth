@@ -16,9 +16,6 @@ export default function Callback() {
         router.push("/login")
         return
       }
-      
-      window.history.replaceState({}, document.title, "/dashboard");
-
 
       const { data: profile } = await supabase
         .from("profiles")
@@ -29,27 +26,26 @@ export default function Callback() {
       if (!profile) {
         const fullName = user.user_metadata.full_name || ""
         const parts = fullName.trim().split(" ")
-
         const nom = parts[0] || "User"
         const prenom = parts.slice(1).join(" ") || ""
 
         const { data: newProfile } = await supabase
           .from("profiles")
-          .upsert({
-            id: user.id,
-            nom,
-            prenom,
-            email: user.email,
-          })
+          .upsert({ id: user.id, nom, prenom, email: user.email })
           .select()
           .single()
 
         localStorage.setItem("user", JSON.stringify(newProfile))
-      } else {
-        localStorage.setItem("user", JSON.stringify(profile))
+
+        const profilComplet = newProfile?.adresse && newProfile?.tel
+        router.push(profilComplet ? "/dashboard" : "/complete-profile")
+        return 
       }
 
-      router.push("/dashboard")
+      localStorage.setItem("user", JSON.stringify(profile))
+
+      const profilComplet = profile?.adresse && profile?.tel
+      router.push(profilComplet ? "/dashboard" : "/complete-profile")
     }
 
     handleAuth()
