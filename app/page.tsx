@@ -1,9 +1,34 @@
 "use client"
 import { Button } from "@/components/ui/button"
+import { Spinner } from "@/components/ui/spinner"
+import { supabase } from "@/lib/supabase"
  import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { toast } from "sonner"
 
 export default function Home (){
     const router = useRouter()
+    const [checking , setChecking] =useState(true)
+    useEffect(() => {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (session) {
+        router.push("/dashboard")
+      } else {
+        setChecking(false) 
+      }
+    }
+    checkSession()
+  }, [router])
+
+  
+  if (checking) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#f5f5f5]">
+        <Spinner className="text-[#111] text-2xl" />
+      </div>
+    )
+  }
 
     return(
        <div className="min-h-screen flex items-center justify-center bg-[#f5f5f5] font-sans p-5">

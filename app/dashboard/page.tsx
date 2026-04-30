@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase";
+import { toast, Toaster } from "sonner";
 
 
 type User = {
@@ -45,6 +46,13 @@ export default function Dashboard() {
         return;
       }
       setUser(profile);
+
+    const isConnect= sessionStorage.getItem("fresh_login");
+    if (isConnect) {
+      sessionStorage.removeItem("fresh_login"); 
+    } else {
+      toast.success(`Bon retour, ${profile.prenom}`);
+    }
       
     };
 
@@ -54,6 +62,7 @@ export default function Dashboard() {
   function handleDeconnexion() {
     supabase.auth.signOut()
     router.push("/");
+    toast.warning("Vous etes deconnecte")
   }
 
   if (!user) {

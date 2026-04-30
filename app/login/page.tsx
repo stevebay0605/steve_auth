@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -14,6 +15,28 @@ export default function LoginPage() {
   const [motDePasse, setMotDePasse] = useState("");
   const [erreur, setErreur] = useState("");
   const [chargement, setChargement] = useState(false);
+  const [checking , setChecking] = useState(true)
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (session) {
+        router.push("/dashboard")
+      } else {
+        setChecking(false) 
+      }
+    }
+    checkSession()
+  }, [router])
+
+  
+  if (checking) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#f5f5f5]">
+        <Spinner  className="text-[#111] text-2xl" />  
+      </div>
+    )
+  }
 
   async function handleGoogleLogin() {
     const { error } = await supabase.auth.signInWithOAuth({
