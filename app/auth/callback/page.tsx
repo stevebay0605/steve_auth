@@ -3,6 +3,7 @@
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { supabase } from "@/lib/supabase"
+import { toast } from "sonner"
 
 export default function Callback() {
   const router = useRouter()
@@ -46,7 +47,11 @@ export default function Callback() {
 
       const profilComplet = profile?.adresse && profile?.tel
       router.push(profilComplet ? "/dashboard" : "/complete-profile")
+
+      toast.success("vous etes connecter")
     }
+
+
 
     handleAuth()
   }, [router])

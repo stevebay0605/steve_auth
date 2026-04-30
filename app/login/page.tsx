@@ -60,6 +60,7 @@ export default function LoginPage() {
     localStorage.setItem("user", JSON.stringify(profile));
     setChargement(false);
     router.push("/dashboard");
+    toast.success("vous etes connecter")
   }
 
   return (

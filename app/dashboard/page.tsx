@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase";
-import { toast } from "sonner";
+
 
 type User = {
   id: number;
@@ -46,7 +45,7 @@ export default function Dashboard() {
         return;
       }
       setUser(profile);
-      toast.success("vous etes connecter")
+      
     };
 
     getUser();
