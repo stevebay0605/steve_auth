@@ -1,7 +1,9 @@
 "use client"
+import { BackgroundBeams } from "@/components/ui/beams"
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
 import { supabase } from "@/lib/supabase"
+import { Hexagon } from "lucide-react"
  import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -36,9 +38,13 @@ export default function Home (){
   
         
         <nav className="flex justify-between items-center px-10 py-5 border-b border-[#EFEFEF]">
-          <span className="text-[13px] font-medium tracking-[0.08em] uppercase text-[#111]">
-            Auth App
+         <div className="flex gap-1 justify-center items-center">
+            <Hexagon />
+           <span className="text-[13px] font-medium tracking-[0.08em] uppercase text-[#111]">
+            Steve-Auth 
           </span>
+
+         </div>
           <div className="flex gap-2">
             <Button
               onClick={() => router.push("/login")}
@@ -57,6 +63,7 @@ export default function Home (){
   
       
         <div className="flex flex-col items-center justify-center text-center px-6 py-20 bg-white">
+          <BackgroundBeams/>
   
           <h1 className="text-[38px] font-medium text-[#111] leading-[1.2] tracking-[-0.02em] max-w-130 mb-4">
             Gérez vos utilisateurs{" "}
@@ -64,8 +71,8 @@ export default function Home (){
           </h1>
   
           <p className="text-[15px] text-[#888] max-w-95 leading-relaxed mb-9">
-            Auth App est une solution simple et sécurisée pour l&apos;authentification
-            et la gestion de comptes utilisateurs.
+            Steve-Auth est une solution simple et sécurisée pour l&apos;authentification
+            et la gestion dex comptes utilisateurs 
           </p>
   
           <div className="flex gap-3">
