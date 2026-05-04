@@ -41,7 +41,7 @@ export default function Home (){
          <div className="flex gap-1 justify-center items-center">
             <Hexagon />
            <span className="text-[13px] font-medium tracking-[0.08em] uppercase text-[#111]">
-            Steve-Auth 
+           Auth 
           </span>
 
          </div>
@@ -72,7 +72,7 @@ export default function Home (){
   
           <p className="text-[15px] text-[#888] max-w-95 leading-relaxed mb-9">
             Steve-Auth est une solution simple et sécurisée pour l&apos;authentification
-            et la gestion dex comptes utilisateurs 
+            et la gestion des comptes utilisateurs 
           </p>
   
           <div className="flex gap-3">
