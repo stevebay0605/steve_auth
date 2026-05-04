@@ -15,14 +15,14 @@ export default function Register(){
 const router = useRouter()
 
 const [nom, setNom] = useState("")
-  const [prenom, setPrenom] = useState("")
-  const [adresse, setAdresse] = useState("")
-  const [tel, setTel] = useState("")
-  const [email, setEmail] = useState("")
-  const [motDePasse, setMotDePasse] = useState("")
-  const [confirmMdp, setConfirmMdp] = useState("")
-  const [erreur, setErreur] = useState("")
-  const [chargement, setChargement] = useState(false)
+const [prenom, setPrenom] = useState("")
+const [adresse, setAdresse] = useState("")
+const [tel, setTel] = useState("")
+const [email, setEmail] = useState("")
+const [motDePasse, setMotDePasse] = useState("")
+const [confirmMdp, setConfirmMdp] = useState("")
+const [erreur, setErreur] = useState("")
+const [chargement, setChargement] = useState(false)
 
   async function handleRegister(){
     if (!nom || !prenom || !motDePasse || !confirmMdp){
